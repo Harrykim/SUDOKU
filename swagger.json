@@ -1,0 +1,301 @@
+{
+  "swagger": "2.0",
+  "host": "localhost:443",
+  "schemes": [
+    "http"
+  ],
+  "info": {
+    "title": "Sudoku",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/boards/{boardId}": {
+      "get": {
+        "description": "GET board using boardId.",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "The boardId to to get Board",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created notification setting",
+            "schema": {
+              "$ref": "#/definitions/Board"
+            }
+          }
+        }
+      }
+    },
+    "/boards": {
+      "post": {
+        "description": "Create a new board to play",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "difficulty",
+            "description": "difficulty of the board game",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "difficulty": {
+                  "type": "string",
+                  "enum": [
+                    "easy",
+                    "medium",
+                    "hard"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Created board",
+            "schema": {
+              "$ref": "#/definitions/Board"
+            }
+          }
+        }
+      }
+    },
+    "/boards/{boardId}/reset": {
+      "post": {
+        "description": "Reset board to it's initial board state",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "boardId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reset board",
+            "schema": {
+              "$ref": "#/definitions/Board"
+            }
+          }
+        }
+      }
+    },
+    "/boards/{boardId}/validate": {
+      "post": {
+        "description": "Validate board if it has invalid row, column or section",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "boardId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Indexes of invalid rows, columns and sections",
+            "schema": {
+              "$ref": "#/definitions/BoardValidation"
+            }
+          }
+        }
+      }
+    },
+    "/boards/{boardId}/complete": {
+      "post": {
+        "description": "Complete board if it pass all the requirements",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "boardId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Completed board",
+            "schema": {
+              "$ref": "#/definitions/Board"
+            }
+          }
+        }
+      }
+    },
+    "/boards/{boardId}/solve": {
+      "post": {
+        "description": "Solve board",
+        "tags": [
+          "Board"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "boardId",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Solved board",
+            "schema": {
+              "$ref": "#/definitions/Board"
+            }
+          }
+        }
+      }
+    },
+    "/boards/{boardId}/cells/:cellId": {
+      "get": {
+        "description": "PUT cell's value.",
+        "tags": [
+          "Cell"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "boardId",
+            "description": "The boardId to to get Board",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "cellId",
+            "description": "The cellId to to get update",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "updated cell's value",
+            "schema": {
+              "$ref": "#/definitions/Cell"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Board": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "size": {
+          "type": "number"
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "example": false
+        },
+        "cells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Cell"
+          }
+        }
+      }
+    },
+    "Cell": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number",
+          "example": 1
+        },
+        "row": {
+          "type": "number",
+          "example": 2
+        },
+        "column": {
+          "type": "number",
+          "example": 2
+        },
+        "sectionIndex": {
+          "type": "number",
+          "example": 2
+        },
+        "isDefault": {
+          "type": "boolean",
+          "example": true
+        }
+      }
+    },
+    "BoardValidation": {
+      "type": "object",
+      "properties": {
+        "rows": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "responses": {},
+  "parameters": {}
+}

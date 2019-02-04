@@ -8,6 +8,8 @@ import * as lusca from 'lusca'
 import knex from './config/knex'
 import { router } from './router'
 import { NotFoundError } from './models/Error'
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('../swagger.json')
 
 const debug = require('debug')('ts-express:app')
 
@@ -31,6 +33,11 @@ knex.migrate.latest().then((result) => {
  * Create Express server.
  */
 const app = express()
+
+/**
+ * Swagger Docs
+ */
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 /**
  * Express configuration.
