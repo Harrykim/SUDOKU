@@ -1,5 +1,3 @@
-# TypeScript Express Starter
-
 ## Swagger Docs
 ```
 # create .env file and copy/paste .env.example (MySQL database is 'sudoku')
