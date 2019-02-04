@@ -1,16 +1,9 @@
 # TypeScript Express Starter
 
-## Build Setup
-
-``` bash
-# install dependencies
+## Swagger Docs
+```
+# create .env file and copy/paste .env.example (DATABASE_DATABASE is 'sudoku')
 $ npm install
-
-# database migrate
-$ npm run migrate
-# or
-$ npx knex migrate:latest
-
-# serve
 $ npm start
+# visit localhost:443/swagger
 ```
