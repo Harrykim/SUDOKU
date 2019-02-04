@@ -190,7 +190,7 @@
       }
     },
     "/boards/{boardId}/cells/:cellId": {
-      "get": {
+      "put": {
         "description": "PUT cell's value.",
         "tags": [
           "Cell"
