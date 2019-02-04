@@ -189,7 +189,7 @@
         }
       }
     },
-    "/boards/{boardId}/cells/:cellId": {
+    "/boards/{boardId}/cells/{cellId}": {
       "put": {
         "description": "PUT cell's value.",
         "tags": [
@@ -212,6 +212,21 @@
             "in": "path",
             "type": "number",
             "required": true
+          },
+          {
+            "in": "body",
+            "name": "value",
+            "description": "value of the cell",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties":{
+                "value": {
+                  "type": "integer",
+                  "example": 1
+                }
+              }
+            }
           }
         ],
         "responses": {
